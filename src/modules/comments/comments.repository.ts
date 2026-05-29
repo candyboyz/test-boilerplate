@@ -10,45 +10,48 @@ export class CommentsRepository {
 
     public async createComment(dto: CreateCommentDto): Promise<Comment> {
         const comment = new this.commentModel(dto);
-        return comment.save();
+        const savedComment = await comment.save();
+        return savedComment.toJSON({ virtuals: true });
     }
 
     public async findAll(page: number = 1, limit: number = 20): Promise<Comment[]> {
-        return this.commentModel
+        const comments = await this.commentModel
             .find()
-            .lean()
             .skip((page - 1) * limit)
             .limit(limit)
             .exec();
+
+        return comments.map((comment) => comment.toJSON({ virtuals: true }));
     }
 
     public async findAllByPostID(postId: number, page: number = 1, limit: number = 20): Promise<Comment[]> {
-        return this.commentModel
+        const comments = await this.commentModel
             .find({ postId })
-            .lean()
             .skip((page - 1) * limit)
             .limit(limit)
             .exec();
+
+        return comments.map((comment) => comment.toJSON({ virtuals: true }));
     }
 
     public async findOne(id: string): Promise<Comment> {
-        const comment = await this.commentModel.findById(id).lean().exec();
+        const comment = await this.commentModel.findById(id).exec();
 
         if (!comment) throw new NotFoundException(`Comment '${id}' not found`);
 
-        return comment;
+        return comment.toJSON({ virtuals: true });
     }
 
     public async updateComment(id: string, dto: UpdateCommentDto): Promise<Comment> {
-        const comment = await this.commentModel.findByIdAndUpdate(id, dto, { new: true }).lean().exec();
+        const comment = await this.commentModel.findByIdAndUpdate(id, dto, { new: true }).exec();
 
         if (!comment) throw new NotFoundException(`Comment '${id}' not found`);
 
-        return comment;
+        return comment.toJSON({ virtuals: true });
     }
 
     public async deleteComment(id: string): Promise<void> {
-        const comment = await this.commentModel.findByIdAndDelete(id).lean().exec();
+        const comment = await this.commentModel.findByIdAndDelete(id).exec();
 
         if (!comment) throw new NotFoundException(`Comment '${id}' not found`);
     }

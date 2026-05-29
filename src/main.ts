@@ -23,7 +23,7 @@ async function bootstrap(): Promise<void> {
         })
     );
 
-    app.enableCors({ origin: 'https://localhost:5173', credentials: true });
+    app.enableCors({ origin: 'http://localhost:5173', credentials: true });
 
     const swaggerConfig = new DocumentBuilder().setTitle('Reon Test API').setVersion('1.0.0').build();
     const document = SwaggerModule.createDocument(app, swaggerConfig);

@@ -21,6 +21,15 @@ export class Comment extends Document {
     @ApiProperty({ minLength: 2, maxLength: 40 })
     @Prop({ required: true, minlength: 2, maxLength: 40 })
     public author: string;
+
+    @ApiProperty()
+    public id: string;
+
+    @ApiProperty({ type: Date })
+    public createdAt: Date;
+
+    @ApiProperty({ type: Date })
+    public updatedAt: Date;
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment);
