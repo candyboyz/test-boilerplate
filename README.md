@@ -32,3 +32,11 @@
 2. Добавление и реализация `CommentsRepository`
 3. Регистрация репозитория в `providers`, добавление `MongooseModule` в `imports`
 
+## Подключение ConfigModule и валидиации
+
+1. Добавлен декоратор `Injectable` к `PostsRepository`, так же импортирован в `providers к PostsModule`, не мешало запуско, но необходимо для дальнейшей корректной работы
+2. Добавлены зависимости (@nestjs/config, joi)
+3. Добавлено получение порта из env в `main.ts`
+4. Инициализация `ConfigModule` и валидация env через `joi`.
+5. Использование `ConfigService` для инициализации `(typeorm, mongoose)`
+
