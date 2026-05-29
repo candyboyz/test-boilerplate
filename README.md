@@ -40,3 +40,9 @@
 4. Инициализация `ConfigModule` и валидация env через `joi`.
 5. Использование `ConfigService` для инициализации `(typeorm, mongoose)`
 
+## Дописать CRUD и сделать DTO для Постов
+
+1. Добавлены DTO `(CreatePostDto, UpdatePostDto)`
+2. Реализован CRUD для Постов, так же полностью заполнен функционал в `posts.(controller, service, repository).ts`
+3. Добавлены настройки для валидации DTO, а так же корс в `main.ts`
+
