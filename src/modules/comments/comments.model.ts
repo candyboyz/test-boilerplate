@@ -5,7 +5,7 @@ export class Comment {
     @Prop({ required: true })
     public postId: number;
 
-    @Prop({ required: true })
+    @Prop({ required: false })
     public text: string;
 
     @Prop({ required: true })
@@ -16,3 +16,4 @@ export class Comment {
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment);
+

@@ -46,3 +46,8 @@
 2. Реализован CRUD для Постов, так же полностью заполнен функционал в `posts.(controller, service, repository).ts`
 3. Добавлены настройки для валидации DTO, а так же корс в `main.ts`
 
+## Дописать CRUD и сделать DTO для Комментариев
+
+1. Добавлены DTO `(CreateCommentDto, UpdateCommentDto)`
+2. Реализован CRUD для Постов, так же полностью заполнен функционал в `comments.(controller, service, repository).ts`
+
