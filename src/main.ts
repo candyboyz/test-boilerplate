@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap(): Promise<void> {
     const app = await NestFactory.create(AppModule);
@@ -22,7 +23,12 @@ async function bootstrap(): Promise<void> {
         })
     );
 
-    app.enableCors();
+    app.enableCors({ origin: 'https://localhost:5173', credentials: true });
+
+    const swaggerConfig = new DocumentBuilder().setTitle('Reon Test API').setVersion('1.0.0').build();
+    const document = SwaggerModule.createDocument(app, swaggerConfig);
+
+    SwaggerModule.setup('docs', app, document);
 
     await app.listen(config.get<number>('PORT') ?? 3000);
 }

@@ -9,12 +9,14 @@ export class CommentsRepository {
     constructor(@InjectModel(Comment.name) private readonly commentModel: Model<Comment>) {}
 
     public async createComment(dto: CreateCommentDto): Promise<Comment> {
-        return this.commentModel.create(dto);
+        const comment = new this.commentModel(dto);
+        return comment.save();
     }
 
     public async findAll(page: number = 1, limit: number = 20): Promise<Comment[]> {
         return this.commentModel
             .find()
+            .lean()
             .skip((page - 1) * limit)
             .limit(limit)
             .exec();
@@ -23,13 +25,14 @@ export class CommentsRepository {
     public async findAllByPostID(postId: number, page: number = 1, limit: number = 20): Promise<Comment[]> {
         return this.commentModel
             .find({ postId })
+            .lean()
             .skip((page - 1) * limit)
             .limit(limit)
             .exec();
     }
 
     public async findOne(id: string): Promise<Comment> {
-        const comment = await this.commentModel.findById(id).exec();
+        const comment = await this.commentModel.findById(id).lean().exec();
 
         if (!comment) throw new NotFoundException(`Comment '${id}' not found`);
 
@@ -37,7 +40,7 @@ export class CommentsRepository {
     }
 
     public async updateComment(id: string, dto: UpdateCommentDto): Promise<Comment> {
-        const comment = await this.commentModel.findByIdAndUpdate(id, dto, { new: true }).exec();
+        const comment = await this.commentModel.findByIdAndUpdate(id, dto, { new: true }).lean().exec();
 
         if (!comment) throw new NotFoundException(`Comment '${id}' not found`);
 
@@ -45,7 +48,7 @@ export class CommentsRepository {
     }
 
     public async deleteComment(id: string): Promise<void> {
-        const comment = await this.commentModel.findByIdAndDelete(id).exec();
+        const comment = await this.commentModel.findByIdAndDelete(id).lean().exec();
 
         if (!comment) throw new NotFoundException(`Comment '${id}' not found`);
     }

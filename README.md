@@ -56,3 +56,8 @@
 1. Создана валидация для текста комментария `comment-text.validator.ts`
 2. Обновлены DTO для использования валидации на текст комментария `(create-comment, update-comment).dto.ts`
 
+## Добавить Swagger
+
+1. Подключен swagger в `main.ts`
+2. Добавлены Api декораторы в каждый controller, dto, model
+

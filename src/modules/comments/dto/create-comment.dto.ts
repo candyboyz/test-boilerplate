@@ -1,22 +1,27 @@
 import { IsInt, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min, MinLength } from 'class-validator';
 import { IsValidCommentText } from '../validators/comment-text.validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCommentDto {
+    @ApiProperty({ required: true })
     @IsInt()
     @IsNotEmpty()
     @Min(1)
     postId: number;
 
+    @ApiProperty({ required: false })
     @IsString()
     @IsOptional()
     @IsValidCommentText()
     text?: string;
 
+    @ApiProperty({ required: true })
     @IsInt()
     @Min(1)
     @Max(5)
     rating: number;
 
+    @ApiProperty({ required: true })
     @IsString()
     @IsNotEmpty()
     @MinLength(2)
