@@ -51,3 +51,8 @@
 1. Добавлены DTO `(CreateCommentDto, UpdateCommentDto)`
 2. Реализован CRUD для Постов, так же полностью заполнен функционал в `comments.(controller, service, repository).ts`
 
+## Настроить дополнительную валидацию
+
+1. Создана валидация для текста комментария `comment-text.validator.ts`
+2. Обновлены DTO для использования валидации на текст комментария `(create-comment, update-comment).dto.ts`
+

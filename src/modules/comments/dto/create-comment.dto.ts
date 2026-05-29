@@ -1,4 +1,5 @@
 import { IsInt, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min, MinLength } from 'class-validator';
+import { IsValidCommentText } from '../validators/comment-text.validator';
 
 export class CreateCommentDto {
     @IsInt()
@@ -8,8 +9,7 @@ export class CreateCommentDto {
 
     @IsString()
     @IsOptional()
-    @MinLength(1)
-    @MaxLength(1000)
+    @IsValidCommentText()
     text?: string;
 
     @IsInt()
